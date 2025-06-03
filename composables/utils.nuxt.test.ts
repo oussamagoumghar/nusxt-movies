@@ -48,7 +48,7 @@ describe('utils', () => {
   })
 
   describe('useSingleton', () => {
-    it('should provide and use singleton without issues', () => {
+    function mountProviderConsumer() {
       const [provideFn, useFn] = useSingleton<() => void>()
 
       const mockFn = vi.fn()
@@ -75,9 +75,13 @@ describe('utils', () => {
 
       const root = document.createElement('div')
       app.mount(root)
+    }
+
+    it('should provide and use singleton without issues', () => {
+      mountProviderConsumer()
     })
 
-    it('should use fallback value if singleton is not provided', () => {
+    function mountConsumerWithFallback() {
       const [, useFn] = useSingleton<string>()
 
       const fallback = 'fallback value'
@@ -97,6 +101,10 @@ describe('utils', () => {
 
       const root = document.createElement('div')
       app.mount(root)
+    }
+
+    it('should use fallback value if singleton is not provided', () => {
+      mountConsumerWithFallback()
     })
   })
 
