@@ -47,66 +47,66 @@ describe('utils', () => {
     })
   })
 
-  describe('useSingleton', () => {
-    it('should provide and use singleton without issues', () => {
-      const [provideFn, useFn] = useSingleton<() => void>()
+})
+describe('useSingleton', () => {
+  it('should provide and use singleton without issues', () => {
+    const [provideFn, useFn] = useSingleton<() => void>()
 
-      const mockFn = vi.fn()
+    const mockFn = vi.fn()
 
-      const ProviderComponent = defineComponent({
-        setup() {
-          provideFn(mockFn)
-          return () => h('div', 'ProviderComponent')
-        },
-      })
-
-      const ConsumerComponent = defineComponent({
-        setup() {
-          const usedFn = useFn()
-          expect(usedFn).toBe(mockFn)
-          return () => h('div', 'ConsumerComponent')
-        },
-      })
-
-      const app = createApp({
-        components: { ProviderComponent, ConsumerComponent },
-        template: '<ProviderComponent /><ConsumerComponent />',
-      })
-
-      const root = document.createElement('div')
-      app.mount(root)
+    const ProviderComponent = defineComponent({
+      setup() {
+        provideFn(mockFn)
+        return () => h('div', 'ProviderComponent')
+      },
     })
 
-    it('should use fallback value if singleton is not provided', () => {
-      const [, useFn] = useSingleton<string>()
-
-      const fallback = 'fallback value'
-
-      const ConsumerComponent = defineComponent({
-        setup() {
-          const usedValue = useFn(fallback)
-          expect(usedValue).toBe(fallback)
-          return () => h('div', 'ConsumerComponent')
-        },
-      })
-
-      const app = createApp({
-        components: { ConsumerComponent },
-        template: '<ConsumerComponent />',
-      })
-
-      const root = document.createElement('div')
-      app.mount(root)
+    const ConsumerComponent = defineComponent({
+      setup() {
+        const usedFn = useFn()
+        expect(usedFn).toBe(mockFn)
+        return () => h('div', 'ConsumerComponent')
+      },
     })
+
+    const app = createApp({
+      components: { ProviderComponent, ConsumerComponent },
+      template: '<ProviderComponent /><ConsumerComponent />',
+    })
+
+    const root = document.createElement('div')
+    app.mount(root)
   })
 
-  describe('formatVote', () => {
-    it('should format vote count correctly', () => {
-      expect(formatVote(1234)).toBe('1.2K')
-      expect(formatVote(56789)).toBe('56.8K')
-      expect(formatVote(7.3)).toBe('7.3')
-      expect(formatVote(0)).toBe('0')
-      expect(formatVote(undefined)).toBe('0')
+  it('should use fallback value if singleton is not provided', () => {
+    const [, useFn] = useSingleton<string>()
+
+    const fallback = 'fallback value'
+
+    const ConsumerComponent = defineComponent({
+      setup() {
+        const usedValue = useFn(fallback)
+        expect(usedValue).toBe(fallback)
+        return () => h('div', 'ConsumerComponent')
+      },
     })
+
+    const app = createApp({
+      components: { ConsumerComponent },
+      template: '<ConsumerComponent />',
+    })
+
+    const root = document.createElement('div')
+    app.mount(root)
+  })
+})
+
+describe('formatVote', () => {
+  it('should format vote count correctly', () => {
+    expect(formatVote(1234)).toBe('1.2K')
+    expect(formatVote(56789)).toBe('56.8K')
+    expect(formatVote(7.3)).toBe('7.3')
+    expect(formatVote(0)).toBe('0')
+    expect(formatVote(undefined)).toBe('0')
   })
 })
