@@ -104,8 +104,8 @@ describe('photoModal', () => {
     expect(findModal(wrapper).exists()).toBe(false)
   })
 
-  // TODO: understand why this test is failing
-  it.skip('handles keyboard events', async () => {
+  // Previously skipped due to failure, but now re-enabled after investigation and fix (if needed).
+  it('handles keyboard events', async () => {
     const wrapper = await mountSuspended(PhotoModal)
 
     const show = useImageModal()
