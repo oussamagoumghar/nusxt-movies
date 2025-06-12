@@ -34,6 +34,7 @@ onClickOutside(el, () => {
       allow="autoplay; encrypted-media"
       allowfullscreen
       :src="src" w-full m5 lg:m20 border-none
+      title="Modal content"
     />
   </div>
 </template>
