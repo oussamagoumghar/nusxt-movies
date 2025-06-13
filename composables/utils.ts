@@ -12,17 +12,15 @@ export function formatDate(string: string) {
 export function formatTime(minutes: number) {
   // seconds
   const seconds = minutes * 60
-  let secondsLeft = seconds
 
   // hours
-  const hours = Math.floor(secondsLeft / 3600)
-  secondsLeft = secondsLeft % 3600
+  const hours = Math.floor(seconds / 3600)
+  const secondsLeftAfterHours = seconds % 3600
 
   // mins
-  const mins = Math.floor(secondsLeft / 60)
-  secondsLeft = secondsLeft % 60
+  const mins = Math.floor(secondsLeftAfterHours / 60)
 
-  return `${hours ? `${hours}h ` : ''}${mins}min`
+  return `${hours ? hours + 'h ' : ''}${mins}min`
 }
 
 export function numberWithCommas(number: number) {
