@@ -104,7 +104,7 @@ describe('photoModal', () => {
     expect(findModal(wrapper).exists()).toBe(false)
   })
 
-  // TODO: understand why this test is failing
+  // This test is currently skipped due to failing, needs investigation.
   it.skip('handles keyboard events', async () => {
     const wrapper = await mountSuspended(PhotoModal)
 
